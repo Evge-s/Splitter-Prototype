@@ -33,17 +33,13 @@ namespace TextSplitter
 
         private bool CheckExist(string str, bool isFirstSearch)
         {
-            foreach (var item in dictionary[str[0]].OrderBy(s => s.Length).Reverse())
+            foreach (var item in dictionary[str[0]].OrderByDescending(s => s.Length))
             {
                 if (item.Length == str.Length)
                 {
                     if (item.Equals(str))
                     {
-                        if (isFirstSearch)
-                        {
-                            isFirstSearch = false;
-                        }
-                        else
+                        if (!isFirstSearch)
                         {
                             temporatyResult.Add(item);
                             return true;
@@ -86,7 +82,6 @@ namespace TextSplitter
             {
                 CheckExist(item.ToLower(), true);
                 finalResult.Add(CreateFinalString(item));
-
             }
             return finalResult;
         }
